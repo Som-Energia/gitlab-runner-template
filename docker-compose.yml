@@ -1,0 +1,30 @@
+version: "3"
+services:
+  runner:
+    image: gitlab/gitlab-runner:latest
+    environment:
+        # parameters were obtained from the call to gitlab-runner --help
+      - TZ=${GITLAB_RUNNER_CI_TIMEZONE-Europe/Madrid}
+      - REGISTER_NON_INTERACTIVE=true
+      - CI_SERVER_URL=${GITLAB_CI_RUNNER_HOST_URL}
+      - REGISTRATION_TOKEN=${GITLAB_CI_RUNNER_REGISTRATION_TOKEN} # reserved envvar
+      - RUNNER_NAME=${GITLAB_CI_RUNNER_NAME}
+      - RUNNER_TAG_LIST=${GITLAB_CI_RUNNER_TAG_LIST}
+      - RUNNER_EXECUTOR=${GITLAB_CI_RUNNER_RUN_EXECUTOR}
+      - DOCKER_IMAGE=${GITLAB_CI_RUNNER_DOCKER_IMAGE-docker:stable}
+      - DOCKER_VOLUMES=${GITLAB_CI_RUNNER_DOCKER_VOLUMES-/var/run/docker.sock:/var/run/docker.sock}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # choose system volume mount or named volume mount, read more at
+      # https://docs.gitlab.com/runner/install/docker.html#option-1-use-local-system-volume-mounts-to-start-the-runner-container
+      - gitlab-runner-config:/etc/gitlab-runner
+      # - /srv/gitlab-runner/config:/etc/gitlab-runner
+    restart: always
+
+volumes:
+  gitlab-runner-config:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/data/docker/gitlab_runner
+      o: bind
