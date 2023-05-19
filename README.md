@@ -152,7 +152,7 @@ Host remote_host
 
 ### Fer que la tasca de CI pugui fer login al servidor remot
 
-Afegir al repositorio la variable de entorno `SSH_PRIVATE_KEY` com tipus `file` i valor els continguts de la clau publica. Aquesta variable de entorn es pot afegir a nivell de projecte o de grup.
+Afegir al repositorio la variable de entorno `SSH_PRIVATE_KEY` com tipus `file` i valor els continguts de la clau privada. Aquesta variable de entorn es pot afegir a nivell de projecte o de grup.
 
 Continuar amb les instruccions de [https://docs.gitlab.com/ee/ci/ssh_keys/](https://docs.gitlab.com/ee/ci/ssh_keys/).
 
