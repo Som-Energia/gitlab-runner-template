@@ -6,11 +6,11 @@ services:
         # parameters were obtained from the call to gitlab-runner --help
       - TZ=${GITLAB_RUNNER_CI_TIMEZONE-Europe/Madrid}
       - REGISTER_NON_INTERACTIVE=true
-      - CI_SERVER_URL=${GITLAB_CI_RUNNER_HOST_URL}
+      - CI_SERVER_URL=${GITLAB_CI_RUNNER_HOST_URL-https://gitlab.somenergia.coop/}
       - REGISTRATION_TOKEN=${GITLAB_CI_RUNNER_REGISTRATION_TOKEN} # reserved envvar
       - RUNNER_NAME=${GITLAB_CI_RUNNER_NAME}
       - RUNNER_TAG_LIST=${GITLAB_CI_RUNNER_TAG_LIST}
-      - RUNNER_EXECUTOR=${GITLAB_CI_RUNNER_RUN_EXECUTOR}
+      - RUNNER_EXECUTOR=${GITLAB_CI_RUNNER_RUN_EXECUTOR-docker}
       - DOCKER_IMAGE=${GITLAB_CI_RUNNER_DOCKER_IMAGE-docker:stable}
       - DOCKER_VOLUMES=${GITLAB_CI_RUNNER_DOCKER_VOLUMES-/var/run/docker.sock:/var/run/docker.sock}
     volumes:
